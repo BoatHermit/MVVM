@@ -1,4 +1,4 @@
-import watcher from "./Watcher";
+import Watcher from "./Watcher";
 
 export default class Compiler {
     constructor(context) {
@@ -6,7 +6,7 @@ export default class Compiler {
         this.context = context;
 
         if (this.$el) {
-            this.$fragment = this.nodeToFragment(this.$el);
+            this.$fragment = this.node2Fragment(this.$el);
             this.compiler(this.$fragment);
             this.$el.appendChild(this.$fragment);
         }
@@ -16,7 +16,7 @@ export default class Compiler {
      * 把所有元素转为文档片段
      * @param node
      */
-    nodeToFragment(node) {
+    node2Fragment(node) {
         let fragment = document.createDocumentFragment();
         if (node.childNodes && node.childNodes.length) {
             node.childNodes.forEach(child => {
@@ -75,9 +75,9 @@ export default class Compiler {
         let text = node.textContent.trim();
         if (text) {
             let exp = this.parseTextExp(text);
-            new watcher(exp, this.context, newValue => {
+            new Watcher(exp, this.context, newValue => {
                 node.textContent = newValue;
-            })
+            });
         }
     }
 

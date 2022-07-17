@@ -14,7 +14,7 @@ export default class Observer {
         }
         Object.keys(data).forEach(key => {
             this.defineReactive(data, key, data[key]);
-        })
+        });
     }
 
     /**
@@ -32,11 +32,14 @@ export default class Observer {
                 return value;
             },
             set: (newValue) => {
+                if(value === newValue){
+                    return
+                }
                 console.log('set');
                 value = newValue;
                 //TODO 触发View页面的变化
             }
-        })
+        });
         this.walk(value);
     }
 }

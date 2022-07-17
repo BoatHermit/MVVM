@@ -5,8 +5,10 @@ class VM {
     constructor(options) {
         this.$el = document.querySelector(options.el);
         this.$data = options.data || {};
+        this.$methods = options.methods;
 
         this._proxyData(this.$data)
+        this._proxyMethods(this.$methods)
 
         new Observer(this.$data);
         new Compiler(this);
