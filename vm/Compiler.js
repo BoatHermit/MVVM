@@ -1,4 +1,5 @@
 export default class Compiler {
-    constructor() {
+    constructor(content) {
+        console.log(content);
     }
 }
