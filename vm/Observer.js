@@ -1,3 +1,5 @@
+import Dep from "./Dep";
+
 export default class Observer {
     constructor(data) {
         this.data = data;
@@ -24,20 +26,20 @@ export default class Observer {
      * @param value
      */
     defineReactive(data, key, value) {
+        let dep = new Dep();
         Object.defineProperty(data, key, {
             enumerable: true,
             configurable: false,
             get: () => {
-                console.log('get');
+                Dep.target && dep.addSub(Dep.target)
                 return value;
             },
             set: (newValue) => {
                 if(value === newValue){
                     return
                 }
-                console.log('set');
                 value = newValue;
-                //TODO 触发View页面的变化
+                dep.notify();
             }
         });
         this.walk(value);

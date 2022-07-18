@@ -1,3 +1,5 @@
+import Dep from "./Dep";
+
 let $uid = 0;
 export default class Watcher {
     constructor(exp, scope, cb) {
@@ -12,7 +14,10 @@ export default class Watcher {
      * 计算表达式
      */
     get() {
-        return Watcher.computeExpression(this.exp, this.scope);
+        Dep.target = this;
+        let newValue = Watcher.computeExpression(this.exp, this.scope);
+        Dep.target = null;
+        return newValue;
     }
 
     /**
