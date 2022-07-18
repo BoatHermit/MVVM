@@ -11,6 +11,7 @@
         <p v-text="msg"></p>
         <label>
             <input type="text" v-model="msg">
+            <button @Click="handleClick">重置</button>
         </label>
     </div>
     <script>
@@ -19,7 +20,11 @@
             data: {
                 msg: 'hello world'
             },
-            methods: {}
+            methods: {
+                handleClick: function () {
+                    this.msg = 'hello world'
+                }
+            }
         })
     </script>
 </body>

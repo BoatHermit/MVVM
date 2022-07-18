@@ -86,9 +86,24 @@ export default class Compiler {
                         break;
 
                 }
+            } else if (attrName.indexOf("@")===0) {
+                this.compilerMethods(this.context, node, attrName, attrValue);
             }
         });
         this.compiler(node);
+    }
+
+    /**
+     * 函数编译
+     * @param scope
+     * @param node
+     * @param attrName
+     * @param attrValue
+     */
+    compilerMethods(scope, node, attrName, attrValue) {
+        let type = attrName.slice(1);
+        let fn = scope[attrValue];
+        node.addEventListener(type, fn.bind(scope));
     }
 
     /**
