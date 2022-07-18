@@ -64,6 +64,30 @@ export default class Compiler {
      */
     compilerElementNode(node) {
         // todo: 完成元素编译
+        let that = this;
+        let attrs = [...node.attributes];
+        attrs.forEach(attr => {
+            let {name: attrName, value: attrValue} = attr;
+            if (attrName.indexOf("v-")===0) {
+                let diName = attrName.slice(2);
+                switch (diName) {
+                    case "text":
+                        new Watcher(attrValue, this.context, newValue => {
+                           node.textContent = newValue;
+                        });
+                        break;
+                    case "model":
+                        new Watcher(attrValue, this.context, newValue => {
+                            node.value = newValue;
+                        });
+                        node.addEventListener("input", e => {
+                            that.context[attrValue] = e.target.value;
+                        });
+                        break;
+
+                }
+            }
+        });
         this.compiler(node);
     }
 

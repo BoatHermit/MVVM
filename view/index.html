@@ -7,8 +7,11 @@
 </head>
 <body>
     <div id = "app">
-        <p>1111{{msg+'234'}}2345</p>
+        <p>"1111"{{msg+'!'}}"0000"</p>
         <p v-text="msg"></p>
+        <label>
+            <input type="text" v-model="msg">
+        </label>
     </div>
     <script>
         let vm = new VM({
