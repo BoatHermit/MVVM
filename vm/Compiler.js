@@ -63,7 +63,6 @@ export default class Compiler {
      * @param node
      */
     compilerElementNode(node) {
-        // todo: 完成元素编译
         let that = this;
         let attrs = [...node.attributes];
         attrs.forEach(attr => {
@@ -77,7 +76,7 @@ export default class Compiler {
                         });
                         break;
                     case "model":
-                        new Watcher(attrValue, this.context, newValue => {
+                        this.tmp = new Watcher(attrValue, this.context, newValue => {
                             node.value = newValue;
                         });
                         node.addEventListener("input", e => {

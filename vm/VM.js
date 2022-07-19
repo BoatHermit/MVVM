@@ -1,7 +1,7 @@
 import Observer from "./Observer";
 import Compiler from "./Compiler";
 
-class VM {
+export default class VM {
     constructor(options) {
         this.$el = document.querySelector(options.el);
         this.$data = options.data || {};
@@ -11,7 +11,7 @@ class VM {
         this._proxyMethods(this.$methods)
 
         new Observer(this.$data);
-        new Compiler(this);
+        this.tmp = new Compiler(this);
     }
 
     /**
